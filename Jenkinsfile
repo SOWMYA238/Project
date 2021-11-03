@@ -12,7 +12,7 @@ pipeline{
 				sh 'mvn test'
 			}
 		}
-     stage(' Package') {
+                stage(' Package') {
 			steps {
 				sh 'mvn package'
         archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
