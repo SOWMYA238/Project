@@ -5,7 +5,7 @@ pipeline{
 
 		stage('Build') {
 			steps {
-				sh 'mvn clean compile'
+				sh 'javac DigitalBankApplication.java'
 			}
 		}
 		stage('Test') {
