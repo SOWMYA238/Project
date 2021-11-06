@@ -1,44 +1,31 @@
-//import hudson.model.*
-//import hudson.EnvVars
-//import groovy.json.JsonSlurperClassic
-//import groovy.json.JsonBuilder
-//import groovy.json.JsonOutput
-//import java.net.URL
-
-
-node{
- stage('Checkout') {
- 
- git 'https://github.com/SOWMYA238/Project.git'
-
+pipeline{
+    agent{label 'master'}
+    tools{
+        maven 'M3'
     }
-
- stage('Build') {
- dir('') {
-     withMaven(
-        // Maven installation declared in the Jenkins "Global Tool Configuration"
-        maven: 'M3') {
-            sh 'mvn clean compile'
+    stages{
+        stage('Checkout'){
+            steps{
+                git 'https://github.com/SOWMYA238/Project.git'
             }
         }
-    }
- stage('Test') {
- dir('') {
-     withMaven(
-        // Maven installation declared in the Jenkins "Global Tool Configuration"
-        maven: 'M3') {
-            sh 'mvn clean test'
+        stage('Build'){
+            steps{
+                 sh 'mvn clean compile'
             }
         }
-    } 
-stage('Package') {
- dir('') {
-     withMaven(
-        // Maven installation declared in the Jenkins "Global Tool Configuration"
-        maven: 'M3') {
-            sh 'mvn clean package'
+        stage('Test'){
+            steps{
+                     sh 'mvn test'
+                     junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
-    }
- }// node
+        stage('Package'){
+            steps{
+                sh 'mvn package'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+        }
+}
 
