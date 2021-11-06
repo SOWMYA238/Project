@@ -2,20 +2,20 @@ pipeline{
 	agent {label 'master'}
 	tools{ maven 'M3'}
 
-		stage(' Build') {
+		stage('Build') {
 			steps {
 				sh 'mvn clean compile'
 			}
 		}
-		stage(' Test') {
+		stage('Test') {
 			steps {
 				sh 'mvn test'
 			}
 		}
-                stage(' Package') {
+                stage('Package') {
 			steps {
 				sh 'mvn package'
-        archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+                                archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
 			}
 		}	
 				
