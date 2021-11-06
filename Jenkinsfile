@@ -9,7 +9,7 @@ import java.net.URL
 node{
  stage('Checkout') {
  
- git 'https://github.com/AnjuMeleth/DCBank.git'
+ git 'https://github.com/SOWMYA238/Project.git'
 
     }
 
